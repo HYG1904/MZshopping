@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>商品详情</title>
+    <link rel="icon" href="img/logo/logo.ico">
+    <link rel="stylesheet" href="css/header.css"/>
+    <link rel="stylesheet" href="css/bootstrap.css"/>
+    <style>
+        .container{
+            width: 1140px;
+            margin: 0 auto;
+        }
+        header iframe{
+            width:100%;
+            height: 3rem;
+        }
+        footer iframe{
+            width: 100%;
+            height: 29rem;
+        }
+        ul{
+            list-style: none;
+        }
+        a{
+            text-decoration: none;
+        }
+        .dt_title{
+            width: 100%;
+            height: 80px;
+            background: #f6f8fb;
+        }
+        .dt_title h3{
+            float: left;
+            margin-left: 2rem;
+            line-height: 80px;
+        }
+        .dt_title ul{
+            float:left;
+            display: flex;
+            width: 40%;
+            line-height: 80px;
+            font-size: 16px;
+            margin-left: 28.5rem;
+            justify-content: space-around;
+        }
+        .buy_img{
+            float: left;
+            width: 50%;
+            text-align: center;
+        }
+        .buy_img>img{
+            width: 70%;
+        }
+        .buy_img .sm_img{
+            width:2rem;
+            height: 2.5rem;
+            margin-top:-1rem;
+        }
+        .buy_img .dt_ride{
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            width:70%;
+            margin:0 auto;
+        }
+        .dt_ride img{
+            cursor:pointer
+        }
+        .model{
+            float:left;
+            width: 50%;
+        }
+        .model h3{
+            color: #262626;
+            font-weight: 700;
+        }
+        /*下面为字体样式*/
+        .font_red{
+            font-size: 14px;
+            color: #e22841;
+        }
+        .font_sm{
+            font-size: 12px;
+            color: #8c8c8c;
+        }
+        #model .discount{
+            width: 37%;
+        }
+        #model .purchased{
+            width: 67%;
+            font-size: 14px;
+        }
+        #model .shipments{
+            width: 60%;
+        }
+        #model .service{
+            font-size: 12px;
+        }
+        #model .delivery{
+            width: 30%;
+        }
+        .delivery>li:last-child{
+            font-size: 14px;
+        }
+        .version ul{
+            width: 100%;
+        }
+        .version li{
+            border: 1px solid;
+            width: 24%;
+            text-align: center;
+            font-size: 14px;
+            border-color:   #BFBFBF;
+        }
+        .version>ul>li:first-child{
+            border: 0px;
+            text-align: left;
+        }
+        #model span{
+            font-size:12px;
+            color: red;
+        }
+        #model .count{
+            width: 47%;
+        }
+        #model .count li{
+            width: 40%;
+            border: 0;
+        }
+        #model .count input{
+            width: 29%;
+            text-align: center;
+        }
+        #model .buy_car button{
+            background-color: #27b3ff;
+            color: white;
+        }
+       .buy:after{
+           content: "";
+           display: block;
+           clear: both;
+       }
+        .particulars h3,.params h3{
+            background: #f4f4f4;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+        .recommend img{
+            width: 100%;
+        }
+        .recommend img:hover{
+            width:120%;
+            transition: all 2s linear;
+        }
+        .recommend div{
+            width:200px;
+            height: 166px;
+            overflow: hidden;
+        }
+        .font{
+            font:14px "黑体";
+            color:black;
+            text-align: center;
+        }
+        /* 参数样式 */
+        .pm_list{
+            width:70%;
+            float:left;
+            /*margin-top:2rem;*/
+        }
+        .pm_list ul{
+            margin-top:2rem;
+        }
+        .pm_list li{
+            margin-left: 4.6rem;
+        }
+        .pm_list ul:first-child li:last-child{
+            margin-left: 3rem;
+        }
+        .pm_list ul:last-child li:nth-child(2){
+            margin-left: 6.6rem;
+        }
+        .pm_list p{
+            margin-top: 0.2rem;
+            margin-bottom: 0.2rem;
+        }
+        .params{
+            float:left
+        }
+        .clear{
+            content:"";
+            display: block;
+            clear: both;
+        }
+        .dt_ride>div{
+            width:17rem;
+            overflow: hidden;
+        }
+        .dt_ride>div>ul{
+            width: 26rem;
+            overflow: hidden;
+            /*margin-left:-4rem;*/
+        }
+        .dt_ride>div>ul img{
+            width:67.2px;
+        }
+        .hidden{
+            display: none;
+        }
+        .show{
+            display: block
+        }
+        .red{
+            border-color: red !important;
+        }
+        .version li{
+            cursor: pointer;
+        }
+        [data-click="prev"], [data-click="next"]{
+            width:23px;
+            height: 54px;
+            display: block;
+            border:0px;
+            margin-bottom: 11px;
+        }
+        [data-click="prev"]{
+            background:white url("img/details/disabled-prev.png") no-repeat;
+            background-position:center center;
+        }
+        [data-click="next"]{
+            background:white url("img/details/disable-next.png") no-repeat;
+            background-position:center center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header  id="header" class="row pt-3 m-0 pb-3 position-relative">
+            <div class="col-sm-2 col-md-3 col-lg-1">
+                <a href="" class="logo">MEIZU</a>
+            </div>
+            <div class="col-lg-6 bar " data-click="show">
+                <ul class="d-flex justify-content-around">
+                    <li><a href="#phone">手机</a></li>
+                    <li><a href="#Headset">声学</a></li>
+                    <li><a href="#parts">配件</a></li>
+                    <li><a href="#life">生活</a></li>
+                    <li><a href="#flyme">Flyme</a></li>
+                    <li><a href="#footer">服务</a></li>
+                    <li><a href="">专卖店</a></li>
+                    <li><a href="">APP下载</a></li>
+                </ul>
+            </div>
+            <div class="col-sm-5 col-md-5 col-lg-2">
+                <input type="text" placeholder="魅族 note9">
+            </div>
+            <div class="col-sm-5 col-md-4 col-lg-3">
+                <ul class="d-flex justify-content-around">
+                    <li class="position-relative">
+                        <a href="">
+                            <img src="img/header/icon-user-white@2x_e5c6494.png" alt="" data-log="user">
+                        </a>
+                        <ul class="position-absolute" data-log="login">
+                            <li class="first"><a href="http://localhost:3000/login.html">立即登录</a></li>
+                            <li class="second"><a href="http://localhost:3000/reg.html">立即注册</a></li>
+                            <Li class="hidden"><a href="">修改资料</a></Li>
+                            <li><a href="">我的订单</a></li>
+                            <li><a href="">M码通道</a></li>
+                            <li data-click="lgout" class="hidden">注销</li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href=""><img src="img/header/shopping-cart-white@2x_bdcf50b.png" alt=""></a>
+                    </li>
+                    <li>
+                        <img src="img/header/按钮.png" alt="" data-click="btn"/>
+                    </li>
+                </ul>
+            </div>
+        </header>
+        <!-- 配置选择 -->
+        <section>
+            <div class="dt_title">
+                <h3>魅族 16th</h3>
+                <ul>
+                    <li><a href="">首页</a></li>
+                    <li><a href="http://localhost:3000/overview.html">概述</a></li>
+                    <li><a href="">性能</a></li>
+                    <li><a href="">相机</a></li>
+                    <li><a href="">参数</a></li>
+                    <li><a href="">常见问题</a></li>
+                </ul>
+            </div>
+            <div class="buy">
+                <div></div>
+                <div class="buy_img">
+                    <img src="img/params-lg/16th_big.jpg" alt="" data-click="img_lg"/>
+                    <div class="dt_ride">
+                        <button data-click="prev"></button>
+                        <div>
+                            <ul class="d-flex pl-0">
+                                <li><img src="img/params-sm/16th_sm1.jpg" alt=""/></li>
+                                <li><img src="img/params-sm/16th_sm2.jpg" alt=""/></li>
+                                <li><img src="img/params-sm/16th_sm4.jpg" alt=""/></li>
+                                <li><img src="img/params-sm/16th_sm3.jpg" alt=""/></li>
+                                <li><img src="img/params-sm/16th_sm3.jpg" alt=""/></li>
+                            </ul>
+                        </div>
+                        <button data-click="next"></button>
+                    </div>
+                </div>
+                <div class="model" id="model">
+                    <h3>魅族16th</h3>
+                    <p class="font_red">限量领券更优惠 | 骁龙845 屏下指纹</p>
+                    <div class="jumbotron w-100 pt-1 pl-2 pb-1 mb-3">
+                        <h1 style="color: red;">¥ 2498.00</h1>
+                        <ul class="d-flex p-0 justify-content-between discount">
+                            <li class="font_red">优惠券</li>
+                            <li class="font_red">满2498减100</li>
+                            <li class="font_red">更多&gt;</li>
+                        </ul>
+                        <ul class="d-flex p-0 justify-content-between purchased">
+                            <li>加价购</li>
+                            <li>另外再加15元，即可换购超值商品</li>
+                            <li>立即加购&gt;</li>
+                        </ul>
+                    </div>
+                    <ul class="d-flex p-0 justify-content-between pl-2 shipments">
+                        <li class="font_sm">支&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;持</li>
+                        <li class="font_sm"><img src="img/details/model_true.png" alt=""/>花呗分期</li>
+                        <li class="font_sm"><img src="img/details/model_true.png" alt=""/>顺丰发货</li>
+                        <li class="font_sm"><img src="img/details/model_true.png" alt=""/>7天无理由退货</li>
+                    </ul>
+                    <ul class="d-flex p-0 justify-content-between pl-2 delivery">
+                        <li class="font_sm">配送服务</li>
+                        <li>重庆 重庆市 <img src="img/details/model_down.png" alt=""/></li>
+                    </ul>
+                    <p class="font_sm pl-2 d-inline-block">本商品由 魅族 负责发货并提供售后服务</p>
+                    <p class="d-inline-block"><img src="img/details/model_service.png" alt=""/><a href="" class="service">在线客服</a></p>
+                    <div class="version">
+                        <ul class="d-flex pl-2 justify-content-between pr-5 mb-1">
+                            <li class="font_sm">型&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号</li>
+                            <li>魅族 16th</li>
+                            <li>魅族 16th Plus</li>
+                            <li>魅族 16 X</li>
+                        </ul>
+                        <ul  class="d-flex pl-2 justify-content-between pr-5 mb-1">
+                            <li></li>
+                            <li>魅族 V8 高配版</li>
+                            <li>魅族 X8</li>
+                            <li>魅族 Note9</li>
+                        </ul>
+                        <ul  class="d-flex pl-2 justify-content-between pr-5 mb-1">
+                            <li class="font_sm">颜色分类</li>
+                            <li>静夜黑</li>
+                            <li>远山白</li>
+                            <li>极光蓝</li>
+                        </ul>
+                        <ul class="d-flex pl-2 justify-content-between pr-5 mb-1">
+                            <li class="font_sm">内存容量</li>
+                            <li>6+64GB</li>
+                            <li>6+128GB</li>
+                            <li>8+128GB</li>
+                        </ul>
+                        <ul class="d-flex pl-2 justify-content-between pr-5 mb-1">
+                            <li class="font_sm">选择套餐</li>
+                            <li>官方标配</li>
+                            <li>套餐一 <span>省129</span></li>
+                            <li>套餐二</li>
+                        </ul>
+                        <ul class="d-flex pl-2 justify-content-between pr-5 mb-1 count">
+                            <li class="font_sm">数&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;量</li>
+                            <li>
+                                <button data-click="reduce">-</button><input type="text" value="1" readonly /><button data-click="increase">+</button>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <div class="buy_car">
+                        <button class="btn">立即购买</button>
+                        <button class="btn">加入购物车</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- 参数 -->
+        <div class="params">
+            <table></table>
+            <h3>参数</h3>
+            <div class="pm_list">
+                <ul class="d-flex">
+                    <li>
+                        <p>高通骁龙 710 平台</p>
+                        <p class="font_sm">Hexagon 685 AI 处理芯片</p>
+                    </li>
+                    <li>
+                        <p>超窄左右边框</p>
+                        <p class="font_sm">定制化 6.2 英寸全面屏</p>
+                    </li>
+                    <li>
+                        <p>超高屏占比</p>
+                        <p class="font_sm">旗舰级 COF 工艺</p>
+                    </li>
+                </ul>
+                <ul class="d-flex ">
+                    <li>
+                        <p>可选 6GB 超大内存</p>
+                        <p class="font_sm">LPDDR4X 高速省电规格</p>
+                    </li>
+                    <li>
+                        <p>人脸解锁 2.0</p>
+                        <p class="font_sm">前置 2000 万像素</p>
+                    </li>
+                    <li>
+                        <p>硬件级 AI 场景识别</p>
+                        <p class="font_sm">Dual PD 全像素双核对焦</p>
+                    </li>
+                </ul>
+                <ul class="d-flex ">
+                    <li>
+                        <p>AI 智能提速</p>
+                        <p class="font_sm">Flyme 游戏模式 3.0</p>
+                    </li>
+                    <li>
+                        <p>全面屏手势交互</p>
+                        <p class="font_sm">升级 Android O 内核</p>
+                    </li>
+                    <li>
+                        <p></p>
+                        <p class="font_sm"></p>
+                    </li>
+                </ul>
+            </div>
+            <img src="img/params-lg/16th_big.jpg" alt="" class="w-25">
+        </div>
+        <!-- 服务说明 -->
+        <div class="clear"></div>
+        <div class="particulars">
+            <h3 class="pl-5">服务说明</h3>
+            <a href=""><img src="img/details/product_safeguard.jpg" alt="" class="w-100"/></a>
+            <h3>为你推荐</h3>
+            <div class="recommend">
+                <ul class="d-flex p-0 justify-content-around">
+                    <li><a href="">
+                        <div class=""><img src="img/index/floor1_1.jpg" alt=""/></div>
+                        <p class="font mb-0">魅族 Note9 </p>
+                        <p class="font mb-0 ">立即购买</p>
+                    </a></li>
+                    <li><a href="">
+                        <div><img src="img/index/floor1_2.jpg" alt=""/> </div>
+                        <p class="font mb-0">魅族X8 </p>
+                        <p class="font mb-0 ">最高直降300</p>
+                    </a></li>
+                    <li><a href="">
+                        <div><img src="img/index/floor1_3.jpg" alt=""/></div>
+                        <p class="font mb-0">以旧换新 </p>
+                        <p class="font mb-0 ">免费寄件 专业检测</p>
+                    </a></li>
+                    <li><a href="">
+                        <div><img src="img/index/floor1_4.jpg" alt=""/></div>
+                        <p class="font mb-0">魅族 Note9 </p>
+                        <p class="font mb-0 ">延保活动登记</p>
+                    </a></li>
+                    <li><a href="">
+                        <div><img src="img/index/floor1_4.jpg" alt=""/></div>
+                        <p class="font mb-0">魅族 Note9 </p>
+                        <p class="font mb-0 ">延保活动登记</p>
+                    </a></li>
+                </ul>
+            </div>
+        </div>
+        <footer>
+            <iframe src="footer.html" frameborder="0" scrolling="0"></iframe>
+        </footer>
+    </div>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script>
+        //    用户登录页面
+        $("[data-log=user]").mouseenter(function(){
+            $("[data-log=login]").show()
+        });
+        $("[data-log=login]").mouseleave(function(){
+            $("[data-log=login]").hide()
+        });
+//        选中参数后，边框变红
+        $(".version li").click(function(){
+            console.log($(this));
+            $(".version li").removeClass("red");
+            $(this).addClass("red")
+        });
+//        修改购买商品数量 pn
+        var pn=1;
+        $("[data-click=increase]").click(function(){
+            pn++;
+            console.log(pn)
+            $(".version input").val(pn);
+        });
+            $("[data-click=reduce]").click(function(){
+                if(pn>0){
+                    pn--;
+                    $(".version input").val(pn);
+                }
+            });
+            //        修改商品大图,pid为传入的id值
+            var pid=location.search;
+            var id=pid.split("=")[1];
+            var url="http://localhost:3000/product/pid";
+            var data="pid="+id;
+            $.ajax({url:url,data:data,type:"get"}).then(function(result){
+                console.log(result);
+                var img_lg=result[0].img_lg;
+                var title=result[0].title;
+                var title_desc=result[0].title_desc;
+                var price=result[0].price;
+                var price_desc=result[0].price_desc;
+                var discount=result[0].discount;
+//            修改大图
+                $("[data-click=img_lg]").attr("src",img_lg);
+                //            删除小图，
+                $(".dt_ride>div>ul>li").remove();
+                var img_sm=result[0].img_sm.split(",");
+                for(var i of img_sm){
+                    var li="<li><img src="+`"${i}"`+"/></li>";
+//                修改小图
+                    $(".dt_ride>div>ul").append(li)
+                }
+//            修改商品名字
+                $(".dt_title h3").html(title);
+                $(".model h3").html(title);
+//            修改商品价格
+                $(".model h1").html(`￥${price}`);
+//              修改商品描述
+                $(".model h3+p").html(title_desc);
+//            修改优惠券
+                $(".discount>li").remove();
+                if(discount!=null){
+                    var discount=result[0].discount.split(",");
+                    for(var j of discount){
+                        var li="<li class='font_red'>"+j+"</li>";
+                        $(".discount").append(li)
+                    }
+                }
+//            价格描述
+                $(".purchased>li:nth-child(2)").html(price_desc);
+                //        点击小图片，显示大图片
+                $(".dt_ride>div img").click(function(){
+                    var src=$(this).attr("src");
+                    $("[data-click=img_lg]").attr("src",src)
+                })
+                //        小图片点击移动 暂时有bug
+                var a=$(".dt_ride>div>ul>li").length;
+                var prev=$("[data-click=prev]");
+                var next=$("[data-click=next]");
+                console.log(a)
+                var n=0;
+                if(a>4){
+                    prev.click(function(){
+                        n++;
+                        if(n+4<=a){
+                            $(".dt_ride>div>ul").css("margin-left",`${-4.2*n}rem`);
+                        }else{
+                            $(this).attr("disabled",true)
+                            n-=1
+                        }
+                        console.log(n)
+                    })
+                }
+                next.click(function(){
+                    prev.attr("disabled",false)
+                    var b=$(".dt_ride>div>ul").css("margin-left");
+                    var c= b.split("p")[0];
+                    if(c<0){
+                        n--;
+                        $(".dt_ride>div>ul").css("margin-left",`${-4.2*n}rem`);
+                    }
+                })
+
+            });
+    </script>
+</body>
+</html>
